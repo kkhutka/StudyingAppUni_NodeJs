@@ -68,13 +68,13 @@ export const updateTest = async (req, res) => {
 export const createTest = async (req, res) => {
 
     try {
-
-        const doc =  new TopicModel(
+      console.log(req.body.answerOptions);
+        const doc =  new TestModel(
             {
                 name: req.body.name,
                 task: req.body.task,
                 topic: req.body.topicId,
-                asnwerOptions: req.body.asnwerOptions,
+                answerOptions: req.body.answerOptions,
                 correctAnswer: req.body.correctAnswer
             });
         const test = await doc.save();

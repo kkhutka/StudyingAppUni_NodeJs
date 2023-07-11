@@ -16,7 +16,7 @@ const TestSchema = new mongoose.Schema(
         },
         topic: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Topic',
+            ref: 'topic',
             required: true,
         }
     }
