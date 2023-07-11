@@ -7,12 +7,11 @@ const app = express();
 
 app.use(express.json());
 
-const router = express.Router();
 
 
 
 mongoose
-    .connect('mongodb://localhost:27017/TestsForUniversitySubjects')
+    .connect('mongodb://127.0.0.1/TestsForUniversitySubjects')
     .then(() => console.log("DB is ok"))
     .catch((err) => console.log("DB error ", err))
 
@@ -31,5 +30,5 @@ app.all('*', (req, res) => {
 });
 
 app.listen(3500, () => {
-    console.log("Server is running on port 3000");
+    console.log("Server is running on port 3500");
   });

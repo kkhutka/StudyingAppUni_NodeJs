@@ -15,8 +15,4 @@ router.route('/')
     .get(getByCourse)
     .post(create)
 
-
-
-
-
 export default router;
