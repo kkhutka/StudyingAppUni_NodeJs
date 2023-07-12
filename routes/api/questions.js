@@ -1,18 +1,18 @@
 import express from 'express';
-import { createTest, getTest, getTestsByCourseAndSubjectAndTopic, removeTest, updateTest } from '../../controllers/TestController.js';
+import { createQuestion, getQuestioncreateQuestion, getQuestioncreateQuestionsByCourseAndSubjectAndTopic, removeQuestioncreateQuestion, updateQuestioncreateQuestion } from '../../controllers/QuestionController.js';
 
 const router  = express.Router();
 
 
 router.route('/')
-    .get(getTestsByCourseAndSubjectAndTopic)
-    .post(createTest)
+    .get(getQuestioncreateQuestionsByCourseAndSubjectAndTopic)
+    .post(createQuestion)
  
 
 router.route('/:id')
-    .get(getTest)
-    .put(updateTest)
-    .delete(removeTest);
+    .get(getQuestioncreateQuestion)
+    .put(updateQuestioncreateQuestion)
+    .delete(removeQuestioncreateQuestion);
 
 
 export default router;
