@@ -1,4 +1,6 @@
-import QuestionModel from "../models/Questions.js";
+import QuestionModel from "../models/Question.js";
+
+
 import { informAboutError } from "../utils/informAboutError.js";
 
 
