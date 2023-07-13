@@ -1,0 +1,44 @@
+[
+    {
+        "name": "First task",
+        "task": "some complex problem",
+        "answerOptions": ["first option", "second option", "third option"],
+        "correctAnswer": "fourth option",
+        "topic": "64b052ed1eeb2f49f0200020"
+    },
+    {
+        "name": "Second task",
+        "task": "some complex problem",
+        "answerOptions": ["first option", "second option", "third option"],
+        "correctAnswer": "fourth option",
+        "topic": "64b052ed1eeb2f49f0200020"
+    },
+    {
+        "name": "Third task",
+        "task": "some complex problem",
+        "answerOptions": ["first option", "second option", "third option"],
+        "correctAnswer": "fourth option",
+        "topic": "64b052ed1eeb2f49f0200020"
+    },
+    {
+        "name": "Fourth task",
+        "task": "some complex problem",
+        "answerOptions": ["first option", "second option", "third option"],
+        "correctAnswer": "fourth option",
+        "topic": "64b052ed1eeb2f49f0200020"
+    },
+    {
+        "name": "Fivth task",
+        "task": "some complex problem",
+        "answerOptions": ["first option", "second option", "third option"],
+        "correctAnswer": "fourth option",
+        "topic": "64b052ed1eeb2f49f0200020"
+    },
+    {
+        "name": "Sixth task",
+        "task": "some complex problem",
+        "answerOptions": ["first option", "second option", "third option"],
+        "correctAnswer": "fourth option",
+        "topic": "64b052ed1eeb2f49f0200020"
+    }
+]

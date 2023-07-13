@@ -11,20 +11,31 @@ export const createSession =  async ( req, res ) => {
         //duration in ms
         // треба буде брати юзера з jwt token-а потім пофіксити
         const {userId, duration, topicId, amountOfQuestions } = req.body;
+        const end = Date.now() + duration
         const questions = await QuestionModel.aggregate([
             { $match: { topic: topicId } }, 
             { $sample: { size: amountOfQuestions } },
         ]);
+        console.log( questions.map(item => item._id));
+        const answers = questions.map((item) => ({
+            question: item._id,
+            isCorrect: false,
+            selectedOption: '',
+        })); // Extract the question IDs
+
         const doc = new SessionModel({
             user: userId,
             topic: topicId,
             start: Date.now(),
-            end: Date.now().getTime() + duration,
+            end: Date.now() + duration,
             amountOfQuestions,
-            questions: questions.map(item => item._id),
+            answers,
         })
-
-        const session = new doc.save();
+        const session = await doc.save();
+        const remainingTime = end - Date.now();
+        setTimeout(async () => {
+            await submitSession(session._id);
+        }, remainingTime);
         return res.json({
             session,
             questions,
@@ -32,5 +43,53 @@ export const createSession =  async ( req, res ) => {
     } catch (error) {
         informAboutError(error,500, "Can create session", res);
     }
+}
 
+
+export const submitAnswers = async (req, res) => {
+    try {
+
+        if (session.submitTime) {
+            return;
+          }
+        const { sessionId, answers } = req.body;
+
+        // Retrieve the session based on the session ID
+        const session = await SessionModel.findById(sessionId);
+
+        // Update the answers in the session
+        for (const answer of answers.questions) {
+            const questionId = answer.question;
+            const selectedOption = answer.selectedOption;
+          
+            const question = await QuestionModel.findById(questionId);
+          
+            const isCorrect = selectedOption === question.correctAnswer;
+          
+            answer.isCorrect = isCorrect;
+          }
+        session.answers = answers;
+        session.submitTime = Date.now();
+
+        await session.save();
+
+        res.json({session});
+    } catch (error) {
+        informAboutError(error, 500, "Failed to submit answers", res);
+    }
+  };
+
+
+export const getSession = async (req,res)=> {
+
+   try {
+        const {sessionId} = req.params.id;
+ 
+        const session = await SessionModel.findById(sessionId);
+
+        return res.json(session)
+
+   } catch (error) {
+        informAboutError(error, 404, "Cant  find session", res);
+   }
 }

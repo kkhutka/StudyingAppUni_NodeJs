@@ -23,23 +23,29 @@ const SessionSchema = new mongoose.Schema(
           submitTime: {
             type: Date,
           },
-          amountOfQuestion: {
-            type: int,
+          amountOfQuestions: {
+            type: Number,
             required: true
           },
-          questions: [{
-            type: mongoose.Schema.Types.ObjectId,
-            default: [],
-        }]
+          answers: [
+            {
+                question: {
+                type: mongoose.Schema.Types.ObjectId,
+                required: true
+                },
+                selectedOption: {
+                    type: String,
+                    default: '',
+                },
+                isCorrect: {
+                    type: Boolean,
+                    default: false,
+                }
+            }
+          ]
     }
 )
 
 
-SessionSchema.pre('save', function (next)  {
-    if (!this.submitTime && this.endTime <= Date.now()) {
-      this.submitTime = Date.now();
-    }
-    next();
-  });
 
 export default mongoose.model('Session', SessionSchema);
