@@ -93,3 +93,28 @@ export const getSession = async (req,res)=> {
         informAboutError(error, 404, "Cant  find session", res);
    }
 }
+
+
+export const updateAnswer = async (req, res) => {
+    try {
+      
+      const { sessionId, questionId, selectedOption } = req.body;
+  
+      const session = await SessionModel.findById(sessionId);
+      if (session.submitTime) {
+        return res.status(500).json({ message: "Test already submitted" });
+      }  
+      const answer = session.answers.find((ans) => ans.question.toString() === questionId);
+  
+      if (answer) {
+        answer.selectedOption = selectedOption;
+      }
+  
+
+      await session.save();
+  
+      res.status(200).json({ message: "Answer updated successfully" });
+    } catch (error) {
+      informAboutError(error, 500, "Failed to update answer", res);
+    }
+  };
