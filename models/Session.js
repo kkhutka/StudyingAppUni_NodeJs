@@ -22,6 +22,7 @@ const SessionSchema = new mongoose.Schema(
           },
           submitTime: {
             type: Date,
+            default: null,
           },
           amountOfQuestions: {
             type: Number,

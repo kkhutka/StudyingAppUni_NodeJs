@@ -22,7 +22,6 @@ export const getByCourse = async (req, res) => {
 export const getOne = async (req, res) => {
 
     try {
-        console.log("get request is okay")
         const subjectId = req.params.id;
         const subject = await SubjectModel.find({_id: subjectId});
 

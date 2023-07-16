@@ -1,5 +1,5 @@
 import express from 'express'
-import { createSession, getSession, submitAnswers } from '../../controllers/sessionController.js';
+import { createSession, getSession, submitSession, updateAnswer } from '../../controllers/sessionController.js';
 
 
 const router = express.Router();
@@ -15,6 +15,10 @@ router.route('/:id')
 
 
 router.route('/submit/:id')
-    .put(submitAnswers)
+    .put(submitSession)
+    
+router.route('/:id')
+    .put(updateAnswer)
+
 
 export default router;

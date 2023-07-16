@@ -1,7 +1,7 @@
 import SessionModel from "../models/Session.js";
 import QuestionModel from "../models/Question.js";
 import { informAboutError } from "../utils/informAboutError.js";
-
+import submitAnswers from "../services/submissionService.js"
 
 
 
@@ -16,7 +16,7 @@ export const createSession =  async ( req, res ) => {
             { $match: { topic: topicId } }, 
             { $sample: { size: amountOfQuestions } },
         ]);
-        console.log( questions.map(item => item._id));
+       
         const answers = questions.map((item) => ({
             question: item._id,
             isCorrect: false,
@@ -34,11 +34,10 @@ export const createSession =  async ( req, res ) => {
         const session = await doc.save();
         const remainingTime = end - Date.now();
         setTimeout(async () => {
-            await submitSession(session._id);
+            await submitAnswers(session._id);
         }, remainingTime);
         return res.json({
             session,
-            questions,
         })
     } catch (error) {
         informAboutError(error,500, "Can create session", res);
@@ -46,34 +45,14 @@ export const createSession =  async ( req, res ) => {
 }
 
 
-export const submitAnswers = async (req, res) => {
+export const submitSession = async (req, res) => {
     try {
 
-        if (session.submitTime) {
-            return;
-          }
-        const { sessionId, answers } = req.body;
-
+        const { sessionId} = req.body;
+        // console.log(sessionId);
         // Retrieve the session based on the session ID
-        const session = await SessionModel.findById(sessionId);
-
-        // Update the answers in the session
-        for (const answer of answers.questions) {
-            const questionId = answer.question;
-            const selectedOption = answer.selectedOption;
-          
-            const question = await QuestionModel.findById(questionId);
-          
-            const isCorrect = selectedOption === question.correctAnswer;
-          
-            answer.isCorrect = isCorrect;
-          }
-        session.answers = answers;
-        session.submitTime = Date.now();
-
-        await session.save();
-
-        res.json({session});
+        const session = await submitAnswers(sessionId)
+        res.json(session);
     } catch (error) {
         informAboutError(error, 500, "Failed to submit answers", res);
     }
@@ -97,8 +76,9 @@ export const getSession = async (req,res)=> {
 
 export const updateAnswer = async (req, res) => {
     try {
+        
       
-      const { sessionId, questionId, selectedOption } = req.body;
+      const {sessionId, questionId, selectedOption } = req.body;
   
       const session = await SessionModel.findById(sessionId);
       if (session.submitTime) {
