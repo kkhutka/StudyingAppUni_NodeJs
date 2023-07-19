@@ -2,7 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import subjectRouts from  './routes/api/subjects.js'
 import topicRouts from  './routes/api/topics.js'
-import testRouts from  './routes/api/tests.js'
+import questionRouts from  './routes/api/questions.js'
+import sessionRouts from './routes/api/session.js'
 const app = express();
 
 app.use(express.json());
@@ -19,7 +20,8 @@ mongoose
 
 app.use("/subjects", subjectRouts)
 app.use("/topics",topicRouts)
-app.use("/tests",testRouts)
+app.use("/questions",questionRouts)
+app.use("/session", sessionRouts)
 
 
 app.all('*', (req, res) => {
