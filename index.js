@@ -3,10 +3,20 @@ import mongoose from 'mongoose';
 import subjectRouts from  './routes/api/subjects.js'
 import topicRouts from  './routes/api/topics.js'
 import testRouts from  './routes/api/tests.js'
+import userRouts from  './routes/api/user.js'
+import authRouts from  './routes/auth.js'
+import registerRouts from  './routes/register.js'
+import refreshTokenRouts from './routes/refresh.js'
+import logoutRouts from './routes/logout.js'
+import { verifyJWT } from './middleware/verifyJWT.js';
+import cookieParser from 'cookie-parser';
+
+
 const app = express();
 
 app.use(express.json());
 
+app.use(cookieParser());
 
 
 
@@ -14,12 +24,19 @@ mongoose
     .connect('mongodb://127.0.0.1/TestsForUniversitySubjects')
     .then(() => console.log("DB is ok"))
     .catch((err) => console.log("DB error ", err))
-
+  
 
 
 app.use("/subjects", subjectRouts)
 app.use("/topics",topicRouts)
 app.use("/tests",testRouts)
+app.use("/auth",authRouts)
+app.use("/register",registerRouts)
+app.use("/refresh",refreshTokenRouts)
+app.use("/logout",logoutRouts)
+app.use(verifyJWT);
+app.use("/user",userRouts)
+
 
 
 app.all('*', (req, res) => {
