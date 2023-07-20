@@ -2,7 +2,6 @@ import express from 'express';
 import mongoose from 'mongoose';
 import subjectRouts from  './routes/api/subjects.js'
 import topicRouts from  './routes/api/topics.js'
-import testRouts from  './routes/api/tests.js'
 import userRouts from  './routes/api/user.js'
 import authRouts from  './routes/auth.js'
 import registerRouts from  './routes/register.js'
