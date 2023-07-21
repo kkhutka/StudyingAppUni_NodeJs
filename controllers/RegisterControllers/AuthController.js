@@ -3,9 +3,9 @@ import User from "../../models/User.js";
 const bcrypt = require('bcrypt');
 
 export const login = async (req, res) =>{
-    const { user,email, pwd } = req.body;
+    const { user, pwd } = req.body;
 
-    //Check if the username, email and password are provided
+    //Check if the username and password are provided
     if (!user || !pwd) return res.sendStatus(400).json({'message': 'Username and password are reqiured.'});
 
     const foundUser = await User.findOne({username: user }).exec();
