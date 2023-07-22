@@ -70,7 +70,6 @@ export const updateQuestion = async (req, res) => {
 export const createQuestion = async (req, res) => {
 
     try {
-      console.log(req.body.answerOptions);
         const doc =  new QuestionModel(
             {
                 name: req.body.name,

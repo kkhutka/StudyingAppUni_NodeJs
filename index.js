@@ -10,7 +10,6 @@ app.use(express.json());
 
 
 
-
 mongoose
     .connect('mongodb://127.0.0.1/TestsForUniversitySubjects')
     .then(() => console.log("DB is ok"))
@@ -33,4 +32,4 @@ app.all('*', (req, res) => {
 
 app.listen(3500, () => {
     console.log("Server is running on port 3500");
-  });
+});

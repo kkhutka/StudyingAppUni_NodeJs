@@ -48,7 +48,7 @@ export const createSession =  async ( req, res ) => {
 export const submitSession = async (req, res) => {
     try {
 
-        const { sessionId} = req.body;
+        const { sessionId } = req.body;
         // console.log(sessionId);
         // Retrieve the session based on the session ID
         const session = await submitAnswers(sessionId)
@@ -59,10 +59,12 @@ export const submitSession = async (req, res) => {
   };
 
 
+
+
 export const getSession = async (req,res)=> {
 
    try {
-        const {sessionId} = req.params.id;
+        const { sessionId    } = req.params.id;
  
         const session = await SessionModel.findById(sessionId);
 
@@ -77,8 +79,8 @@ export const getSession = async (req,res)=> {
 export const updateAnswer = async (req, res) => {
     try {
         
-      
-      const {sessionId, questionId, selectedOption } = req.body;
+      const sessionId = req.params.id
+      const { questionId, selectedOption } = req.body;
   
       const session = await SessionModel.findById(sessionId);
       if (session.submitTime) {
@@ -97,4 +99,4 @@ export const updateAnswer = async (req, res) => {
     } catch (error) {
       informAboutError(error, 500, "Failed to update answer", res);
     }
-  };
+};
