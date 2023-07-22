@@ -1,8 +1,10 @@
 import User from "../../models/User.js";
  
 
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
+import jwt from 'jsonwebtoken';
+
+import dotenv from 'dotenv'
+dotenv.config();
 
 export const handleRefreshToken = async (req, res) => {
     const cookies = req.cookies;
