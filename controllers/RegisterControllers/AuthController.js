@@ -1,11 +1,10 @@
 import User from "../../models/User.js";
 
-
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 export const login = async (req, res) =>{
     const { user, pwd } = req.body;
-
     //Check if the username and password are provided
     if (!user || !pwd) return res.sendStatus(400).json({'message': 'Username and password are reqiured.'});
 
@@ -31,7 +30,6 @@ export const login = async (req, res) =>{
         foundUser.refreshToken = refreshToken;
         const result = await foundUser.save();
         console.log(result);
-
         res.cookie('jwt', refreshToken, { httpOnly: true,secure: true, maxAge: 24 * 60 * 60 * 1000});
         res.json({ accessToken });
     }else{
