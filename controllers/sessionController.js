@@ -10,7 +10,8 @@ export const createSession =  async ( req, res ) => {
     try {
         //duration in ms
         // треба буде брати юзера з jwt token-а потім пофіксити
-        const {userId, duration, topicId, amountOfQuestions } = req.body;
+        const userId = req.user;
+        const {duration, topicId, amountOfQuestions } = req.body;
         const end = Date.now() + duration
         const questions = await QuestionModel.aggregate([
             { $match: { topic: topicId } }, 

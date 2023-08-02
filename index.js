@@ -26,16 +26,21 @@ mongoose
   
 
 
-app.use("/subjects", subjectRouts)
-app.use("/topics",topicRouts)
-app.use("/questions",questionRouts)
-app.use("/session", sessionRouts)
+
 app.use("/auth",authRouts)
 app.use("/register",registerRouts)
 app.use("/refresh",refreshTokenRouts)
 app.use("/logout",logoutRouts)
 app.use(verifyJWT);
 app.use("/user",userRouts)
+
+app.use("/subjects", subjectRouts)
+
+app.use("/topics",topicRouts)
+
+app.use("/questions",questionRouts)
+
+app.use("/session", sessionRouts)
 
 app.all('*', (req, res) => {
     res.status(404);
