@@ -7,13 +7,13 @@ const router  = express.Router();
 
 router.route('/')
     .get(getQuestionsByCourseAndSubjectAndTopic)
-    .post(verifyRoles("admin"),createQuestion)
+    .post(verifyRoles("admin"), createQuestion)
  
 
 router.route('/:id')
     .get(getQuestion)
-    .put(verifyRoles("admin"),updateQuestion)
-    .delete(verifyRoles("admin"),removeQuestion);
+    .put(verifyRoles("admin"), updateQuestion)
+    .delete(verifyRoles("admin"), removeQuestion);
 
 
 export default router;
