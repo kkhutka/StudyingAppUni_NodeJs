@@ -17,7 +17,7 @@ export const login = async (req, res) =>{
     if(match){
         const roles = foundUser.roles;
         const accessToken = jwt.sign(
-            {UserInfo: {
+            {"UserInfo": {
                 "username" : foundUser.username,
                 roles,
             }

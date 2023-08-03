@@ -11,8 +11,12 @@ import refreshTokenRouts from './routes/refresh.js'
 import logoutRouts from './routes/logout.js'
 import { verifyJWT } from './middleware/verifyJWT.js';
 import cookieParser from 'cookie-parser';
+import cors from 'cors'
+
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 
@@ -31,6 +35,7 @@ app.use("/auth",authRouts)
 app.use("/register",registerRouts)
 app.use("/refresh",refreshTokenRouts)
 app.use("/logout",logoutRouts)
+
 app.use(verifyJWT);
 app.use("/user",userRouts)
 

@@ -7,7 +7,7 @@ import { informAboutError } from "../utils/informAboutError.js";
 export const getBySubjectAndCourse = async (req, res) => {
     try {
         const course  = req.body.course;
-        const subjectName = req.body.topicName;  
+        const subjectName = req.body.subjectName;  
         if (course && subjectName) {
             const topics = await TopicModel.find()
                 .populate({
