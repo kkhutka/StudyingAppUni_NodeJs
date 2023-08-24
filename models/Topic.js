@@ -10,6 +10,14 @@ const TopicSchema = new mongoose.Schema(
             type:mongoose.Schema.Types.ObjectId,
             ref: 'Subject',
             required: true,
+        },
+        duration: {
+            type: Number,
+            default: 1000*10*60
+        },
+        amountOfQuestions: {
+            type: Number,
+            default: 10,
         }
     }
 )

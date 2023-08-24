@@ -1,6 +1,7 @@
 import SessionModel from "../models/Session.js";
 import QuestionModel from "../models/Question.js";
 import { informAboutError } from "../utils/informAboutError.js";
+import TopicModel from "../models/Topic.js";
 import submitAnswers from "../services/submissionService.js"
 
 
@@ -11,7 +12,9 @@ export const createSession =  async ( req, res ) => {
         //duration in ms
         // треба буде брати юзера з jwt token-а потім пофіксити
         const userId = req.user;
-        const {duration, topicId, amountOfQuestions } = req.body;
+        const {topicId} = req.body;
+        const topic = await TopicModel.findOne({id:topicId})
+        const {duration, amountOfQuestions} = topic;
         const end = Date.now() + duration
         const questions = await QuestionModel.aggregate([
             { $match: { topic: topicId } }, 
@@ -65,7 +68,7 @@ export const submitSession = async (req, res) => {
 export const getSession = async (req,res)=> {
 
    try {
-        const { sessionId    } = req.params.id;
+        const sessionId  = req.params.id;
  
         const session = await SessionModel.findById(sessionId);
 
@@ -73,6 +76,33 @@ export const getSession = async (req,res)=> {
 
    } catch (error) {
         informAboutError(error, 404, "Cant  find session", res);
+   }
+}
+
+export const isSessionStarted = async (req,res)=> {
+
+   try {
+        const  topicId  = req.params.id;
+        const userId = req.user;
+        const sessionsWithThisTopic = await SessionModel.find(
+            {
+                topicId: topicId,
+                userId: userId
+            })
+            .populate('topic', ['name', 'duration']) 
+            .populate({
+                path: 'answers.question', 
+                model: 'question',
+                select: ['answerOptions', 'name', 'task', 'imageUrl']
+            });
+
+        const session = sessionsWithThisTopic.find(session => session.submitTime === null);
+
+        return session ? res.json(session) : informAboutError(null, 404, "No started session found", res);
+
+
+   } catch (error) {
+        informAboutError(error, 404, "No started session found", res);
    }
 }
 
