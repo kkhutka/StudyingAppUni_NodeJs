@@ -1,18 +1,19 @@
 import express from 'express';
 import { create,  getByCourse, getOne, remove, update } from '../../controllers/SubjectController.js';
 
-
+import verifyRoles from '../../middleware/verifyRoles.js';
 
 const router  = express.Router();
 
 
+
 router.route('/:id')
     .get(getOne)
-    .put(update)
-    .delete(remove);
+    .put(verifyRoles("admin"),update)
+    .delete(verifyRoles("admin"),remove);
 
 router.route('/')
     .get(getByCourse)
-    .post(create)
+    .post(verifyRoles("admin"),create)
 
 export default router;

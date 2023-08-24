@@ -1,5 +1,5 @@
 import express from 'express'
-import { createSession, getSession, submitSession, updateAnswer } from '../../controllers/sessionController.js';
+import { createSession, getSession, isSessionStarted, submitSession, updateAnswer } from '../../controllers/sessionController.js';
 
 
 const router = express.Router();
@@ -19,6 +19,10 @@ router.route('/submit/:id')
     
 router.route('/:id')
     .put(updateAnswer)
+
+
+router.route('/started/:id')
+    .get(isSessionStarted)
 
 
 export default router;

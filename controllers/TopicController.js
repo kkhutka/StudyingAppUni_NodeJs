@@ -7,7 +7,7 @@ import { informAboutError } from "../utils/informAboutError.js";
 export const getBySubjectAndCourse = async (req, res) => {
     try {
         const course  = req.body.course;
-        const subjectName = req.body.topicName;  
+        const subjectName = req.body.subjectName;  
         if (course && subjectName) {
             const topics = await TopicModel.find()
                 .populate({
@@ -46,6 +46,8 @@ export const update = async (req, res) => {
             {
                 name: req.body.name,
                 subject: req.body.subjectId,
+                duration: req.body.duration,
+                amountOfQuestions: req.body.amountOfQuestions,
             },
             {new:true});
         res.json(topic);
@@ -61,6 +63,8 @@ export const create = async (req, res) => {
             {
                 name: req.body.name,
                 subject: req.body.subjectId,
+                duration: req.body.duration,
+                amountOfQuestions: req.body.amountOfQuestions,
             });
         const topic = await doc.save();
         res.json(topic);

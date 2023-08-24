@@ -18,6 +18,10 @@ const QuestionSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'topic',
             required: true,
+        },
+        imageUrl: {
+            type: String,
+            default: '',
         }
     }
 )

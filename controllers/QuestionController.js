@@ -58,7 +58,8 @@ export const updateQuestion = async (req, res) => {
                 task: req.body.task,
                 topic: req.body.topicId,
                 asnwerOptions: req.body.asnwerOptions,
-                correctAnswer: req.body.correctAnswer
+                correctAnswer: req.body.correctAnswer,
+                imageUrl: req.body.imageUrl,
             },
             {new:true});
         res.json(question);
@@ -70,14 +71,14 @@ export const updateQuestion = async (req, res) => {
 export const createQuestion = async (req, res) => {
 
     try {
-      console.log(req.body.answerOptions);
         const doc =  new QuestionModel(
             {
                 name: req.body.name,
                 task: req.body.task,
                 topic: req.body.topicId,
                 answerOptions: req.body.answerOptions,
-                correctAnswer: req.body.correctAnswer
+                correctAnswer: req.body.correctAnswer,
+                imageUrl: req.body.imageUrl,
             });
         const question = await doc.save();
         res.json(question);

@@ -11,13 +11,16 @@ import refreshTokenRouts from './routes/refresh.js'
 import logoutRouts from './routes/logout.js'
 import { verifyJWT } from './middleware/verifyJWT.js';
 import cookieParser from 'cookie-parser';
+import cors from 'cors'
+
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 
 app.use(cookieParser());
-
 
 
 mongoose
@@ -27,16 +30,22 @@ mongoose
   
 
 
-app.use("/subjects", subjectRouts)
-app.use("/topics",topicRouts)
-app.use("/questions",questionRouts)
-app.use("/session", sessionRouts)
+
 app.use("/auth",authRouts)
 app.use("/register",registerRouts)
 app.use("/refresh",refreshTokenRouts)
 app.use("/logout",logoutRouts)
+
 app.use(verifyJWT);
 app.use("/user",userRouts)
+
+app.use("/subjects", subjectRouts)
+
+app.use("/topics",topicRouts)
+
+app.use("/questions",questionRouts)
+
+app.use("/session", sessionRouts)
 
 app.all('*', (req, res) => {
     res.status(404);
@@ -47,4 +56,4 @@ app.all('*', (req, res) => {
 
 app.listen(3500, () => {
     console.log("Server is running on port 3500");
-  });
+});
