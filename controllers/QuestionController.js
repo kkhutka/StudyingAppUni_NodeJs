@@ -36,7 +36,7 @@ export const getQuestionsByCourseAndSubjectAndTopic = async (req, res) => {
       const questionId = req.params.id;
   
       const question = await QuestionModel.findById(questionId).populate('topic');
-      if (!Question) {
+      if (!question) {
         informAboutError(error, 404, "Can't find Question", res);
       }
   

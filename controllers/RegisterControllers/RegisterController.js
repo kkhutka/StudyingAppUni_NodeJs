@@ -20,7 +20,8 @@ export const newUser = async (req,res) => {
         const newUser = await User.create({ 
             "username":user, 
             "email":email, 
-            "password":hashedPwd
+            "password":hashedPwd,
+            "roles": ['user']
         });
         res.status(201).json({ 'success': `New user ${user} created!` });
     } catch (err){
