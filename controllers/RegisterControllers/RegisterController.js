@@ -21,7 +21,7 @@ export const newUser = async (req,res) => {
             "username":user, 
             "email":email, 
             "password":hashedPwd,
-            "roles": ['user']
+            "roles": ['user'],
         });
         res.status(201).json({ 'success': `New user ${user} created!` });
     } catch (err){
