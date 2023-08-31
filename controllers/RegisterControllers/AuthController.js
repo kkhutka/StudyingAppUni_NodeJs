@@ -13,25 +13,23 @@ export const login = async (req, res) =>{
 
     // Check if the password is correct
     const match = await bcrypt.compare(pwd, foundUser.password);
-
     if(match){
         const roles = foundUser.roles;
         const accessToken = jwt.sign(
             {"UserInfo": {
                 "username" : foundUser.username,
-                roles,
+                "roles" : roles,
             }
         },
             process.env.ACCESS_TOKEN_SECRET,
-            {expiresIn: '30s'}
+            {expiresIn: '15m'}
         );
-
         const refreshToken = jwt.sign(
             {"username" : foundUser.username},
             process.env.REFRESH_TOKEN_SECRET,
             {expiresIn: '1d'}
         );
-
+        console.log("Here");
         foundUser.refreshToken = refreshToken;
         const result = await foundUser.save();
         console.log(result);
