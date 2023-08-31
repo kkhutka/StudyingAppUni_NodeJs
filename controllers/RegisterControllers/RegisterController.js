@@ -21,6 +21,9 @@ export const newUser = async (req,res) => {
             "username":user, 
             "email":email, 
             "password":hashedPwd,
+             "roles": ['user'],
+
+
         });
         await newUser.save();
 
